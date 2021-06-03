@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News</title>
+    <style>
+        body{
+            background-color: #bebfc08e;
+        }
+        .new{
+            max-width:700px;
+            margin:1em auto;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="new">
+        <img src="{% static 'blog/news.jpg' %}" alt="" width="100%" height="300px">
+        <div class="cont">
+            <h2>{{ post.title }}</h2>
+            <h6>Posted : {{post.date_posted}}</h6>
+            {% if object.author == user %}
+            <a href="{% url 'post-update' object.id %}">Update</a>
+            <a href="{% url 'post-delete' object.id %}">Delete</a>
+            {% endif %}
+        <p>{{ post.content }}</p>
+        </div>
+        
+    </div>
+</body>
+</html>

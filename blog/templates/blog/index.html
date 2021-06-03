@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+    <title>Public Print</title>
+</head>
+
+<body>
+    {% block content %}
+    <header>
+        <div class="logo">
+            <div class="p">
+                <h1>P</h1>
+            </div>
+            <div class="informa">
+                <h2>Public Print</h2>
+                <h3>The new age of information</h3>
+            </div>
+        </div>
+        <div class="nav">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="#con">Contact</a></li>
+                {% if user.is_authenticated %}
+                <li><a id="log" href="{% url 'profile' %}">Profile</a></li>
+                <li><a id="log" href="{% url 'post-create' %}">Create</a></li>
+                <li><a id="log" href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                <li><a id="log" href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </header>
+    <div class="mes">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert">{{ message }}</div>
+            {% endfor%}
+        {% endif %}
+    </div>
+        <div class="intro">
+            <div class="info">
+                <h5>
+                    Public print is a platform for the organization or an individual people to share news all around the world.Public print aim to provide a service for the people by sharing accurate news to the people.
+                </h5>
+                <h4>Do you want to be part of public print?</h4>
+                <a href="{% url 'register' %}">Signup</a>
+            </div>
+            <div class="sideimage">
+                <img src="{% static 'blog/sideimg.png' %}" alt="" height="405px" width="530px">
+            </div>
+        </div><!--End of introduction-->
+        <!--
+        <div class="subnav">
+            <div class="searching">
+                <input type="text" name="" id="" placeholder="Search...">
+                <input type="submit" value="Search">
+            </div>
+        </div>
+        -->
+        <div class="latestContent">
+            <!--<div class="category">
+                <h2>Latest</h2>
+            </div>-->
+            <div class="newhighlight">
+                {% for post in posts %}
+                <div class="highlight">
+                    <img src="{% static 'blog/news.jpg' %}" alt=""width="100%" height="300px">
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.content|slice:"0:60"  }}</p>
+                    <a id="btn-read" href="{% url 'post-detail' post.id %}">Read more</a>
+                </div>
+                {% endfor %}
+            </div>
+    
+        </div>
+<!--End of news content-->
+<div class="public">
+    <h2>The new age of information</h2>
+</div>
+<div class="system">
+    {% for post in posts %}
+    <div class="system-post">
+        <div class="image">
+            <img src="{% static 'blog/news.jpg' %}" alt=""width="200px" height="200px">
+        </div>
+       <div class="content">
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content|slice:"0:200"  }}</p>
+            <a id="btn-read" href="{% url 'post-detail' post.id %}">Read more</a>
+       </div>
+    </div>
+    {% endfor %}
+    </div>
+    <footer>
+        <div class="mainsitemap">
+            
+            <div class="sitemap">
+                
+                <ul class="list">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </div>
+            <div class="privacy">
+                <ul class="list">
+                    <li><a href="#">Term&Condition</a></li>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Career</a></li>
+                    <li><a href="#" >Service</a></li>
+                </ul>
+            </div>
+            <div class="location">
+                <ul class="list">
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Avadi 400 Feet Outer Ring Road</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> publicprint@gmail.com</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> +918734239898</a></li>
+                    <li><a href="#" ><i class="fas fa-phone"></i> +918734319898</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="contact">
+
+                <div class="right">
+                    <form action="addContact/" method="POST">{% csrf_token %}
+                        <section class="copy">
+                            <h2 id="con">Contact</h2>
+                        </section>
+                        <div class="input_cont name">
+                        <div class="input_cont email">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="" placeholder="Email">
+                        </div>
+                        <div class="input_cont password">
+                            <label for="content">Message</label>
+                            <textarea name="content" id="" cols="30" rows="10"></textarea>
+                        </div>
+                        <button class="message-btn" type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endblock content %}
+</body>
+</html>

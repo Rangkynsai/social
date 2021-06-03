@@ -1,0 +1,28 @@
+{%extends "blog/index.html" %}
+    {% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="split_screen">
+        <div class="left">
+            <section class="copy">
+                <h1>Register your organization with the most acurate platform for your news.</h1>
+                <p>Share your news all around the world from anywhere</p>
+            </section>
+        </div>
+        <div class="right">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <section class="copy">
+                    <h2>Sign Up</h2>
+                    <div class="login_cont">
+                        <p>Already have an account ?<a href="{% url 'login' %}"><strong>Login</strong></a></p>
+                    </div>
+                </section>
+                <fieldset>
+                    {{ form|crispy }}
+                </fieldset>
+                <button class="singup-btn" type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+    {% endblock content %}
